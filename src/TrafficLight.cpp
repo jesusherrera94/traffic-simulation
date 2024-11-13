@@ -5,6 +5,8 @@
 
 /* Implementation of class "MessageQueue" */
 
+template <typename T>
+MessageQueue<T>::MessageQueue() {}
 
 template <typename T>
 T MessageQueue<T>::receive()
@@ -31,6 +33,7 @@ void MessageQueue<T>::send(T &&msg)
 
 TrafficLight::TrafficLight()
 {
+    _queue = std::make_shared<MessageQueue<TrafficLightPhase>>();
     _currentPhase = TrafficLightPhase::red;
 }
 
