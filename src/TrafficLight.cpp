@@ -20,7 +20,7 @@ template <typename T>
 void MessageQueue<T>::send(T &&msg)
 {
     std::lock_guard<std::mutex> lock(_mutex);
-    _queue.clear(); // clear the queue before sending a new message
+    // _queue.clear(); // clear the queue before sending a new message
     _queue.push_back(std::move(msg));
     _condition.notify_one();
 }
@@ -32,6 +32,11 @@ void MessageQueue<T>::send(T &&msg)
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
+}
+
+TrafficLight::~TrafficLight()
+{
+    std::cout << "Traffic Light Destructor Executed!" << std::endl;
 }
 
 void TrafficLight::waitForGreen()
