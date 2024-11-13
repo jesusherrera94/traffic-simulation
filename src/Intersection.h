@@ -12,7 +12,6 @@
 class Street;
 class Vehicle;
 
-// auxiliary class to queue and dequeue waiting vehicles in a thread-safe manner
 class WaitingVehicles
 {
 public:

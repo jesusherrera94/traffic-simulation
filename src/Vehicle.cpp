@@ -15,33 +15,25 @@ Vehicle::Vehicle()
 
 void Vehicle::setCurrentDestination(std::shared_ptr<Intersection> destination)
 {
-    // update destination
     _currDestination = destination;
-
-    // reset simulation parameters
     _posStreet = 0.0;
 }
 
 void Vehicle::simulate()
 {
-    // launch drive function in a thread
     threads.emplace_back(std::thread(&Vehicle::drive, this));
 }
 
 // virtual function which is executed in a thread
 void Vehicle::drive()
 {
-    // print id of the current thread
     std::unique_lock<std::mutex> lck(_mtx);
     std::cout << "Vehicle #" << _id << "::drive: thread id = " << std::this_thread::get_id() << std::endl;
     lck.unlock();
-
-    // initalize variables
     bool hasEnteredIntersection = false;
     double cycleDuration = 1; // duration of a single simulation cycle in ms
     std::chrono::time_point<std::chrono::system_clock> lastUpdate;
 
-    // init stop watch
     lastUpdate = std::chrono::system_clock::now();
     while (true)
     {

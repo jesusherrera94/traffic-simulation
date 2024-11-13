@@ -3,7 +3,6 @@
 #include <chrono>
 #include "TrafficObject.h"
 
-// init static variable
 int TrafficObject::_idCnt = 0;
 
 std::mutex TrafficObject::_mtx;
@@ -28,7 +27,6 @@ TrafficObject::TrafficObject()
 
 TrafficObject::~TrafficObject()
 {
-    // set up thread barrier before this object is destroyed
     std::for_each(threads.begin(), threads.end(), [](std::thread &t) {
         t.join();
     });
